@@ -1,6 +1,7 @@
-API="https://tic-tac-toe-api-production.herokuapp.com/create-game"
-URL_PATH="/create-game"
-curl "${API}${URL_PATH}/${ID}"\
---include \
---request PATCH
+curl "https://tic-tac-toe-api-production.herokuapp.com/games" \
+  --include \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --header "Authorization: Token token=267b0c272761786da87579490f97261d"
+
 echo
