@@ -1,9 +1,8 @@
 'use strict'
 
-const store = {
+const storeGame = {
 }
 
 module.exports = {
-    store
+    storeGame
 }
- 
