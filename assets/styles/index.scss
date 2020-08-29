@@ -1,34 +1,35 @@
 @import '~bootstrap/scss/bootstrap';
-
-*, *::after, *::before {
-    box-sizing: border-box;
+.container {
+  height: 100vh;
 }
-
-:root {
-    --cell-size: 100px;
-}
-
-body {
-    margin: 0;
-
-}
-
 .board {
-    width: 100vw;
-    height: 100vh;
-    display: grid;
+  max-height: calc(100vh - 100px);
+  min-width: calc(100vh - 100px);
+  margin: auto;
+  background: gray;
+  background-size: cover;
+} 
+.box {
+    background: gray;
+    min-height: calc(100% / 3);
+    display: flex;
     justify-content: center;
-    align-content: center;
-    justify-items: center;
     align-items: center;
-    grid-template-columns: repeat(3, auto);
+    font-size: 15vh;
+    text-shadow: 2px 2px rgba(0, 0, 0, .25);
+    user-select: none;
+    border-right: 3px solid black;
+    border-bottom: 3px solid black;
+&:nth-child(3n) {
+    border-right: 0px;
 }
 
-.cell {
-    width: var(--cell-size);
-    height: var(--cell-size);
-    background-color: white;
-    border: 1px solid black;
+&:nth-last-child(-1n + 3) {
+    border-bottom: 0px;
 }
-
-// Developers should store styles in assets/styles and load them from assets/styles/index.scss. Bootstrap version 3 is included in this template.
+ 
+&:hover {
+    background-color: LightSteelBlue;
+    cursor: pointer;
+}
+}

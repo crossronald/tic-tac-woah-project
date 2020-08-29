@@ -11,10 +11,10 @@ const onCreateGameSuccess = function(response) {
 }
 const onGetAllGamesSuccess = function() {
     $('#message').text('Here are all your games!')
-}
+} 
 const onGetGameSuccess = function() {
     $('#message').text('Here\'s the game you asked for!')
-} 
+}  
 const onSignInSuccess = function(response) {
     store.user = response.user
     $('#message').text('You are now signed in!')
