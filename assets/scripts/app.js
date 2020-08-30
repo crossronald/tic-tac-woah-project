@@ -7,11 +7,10 @@ const authEvents = require('./events')
  
 
 $(() => {
-
-    
 //User account related + game data managment
 $('#change-password').on('submit',authEvents.onChangePassword)//change password
 $('#create-game').on('click', authEvents.onCreateGame)//create game
+$('#save-game').on('click', authEvents.onSaveGame)//save game
 $('#get-all-games').on('click', authEvents.onGetAllGames)//get all games
 $('#get-game').on('click', authEvents.onGetGame)//get game
 $('#sign-in').on('submit',authEvents.onSignIn)//sign in

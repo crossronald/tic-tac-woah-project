@@ -14,14 +14,6 @@ const store = require("./store")
 //     }
 //   }
 
-
-
- 
-
-
-
-
-
 const changePassword = function (data) {
     return $.ajax({
         url: config.apiUrl + '/change-password',
@@ -32,8 +24,6 @@ const changePassword = function (data) {
         data: data
     }) 
 }
-
-
 
 const createGame = function (data) {
     return $.ajax({
@@ -47,7 +37,7 @@ const createGame = function (data) {
 }
 const getAllGames = function (data) {
     return $.ajax({
-        url: config.apiUrl + '/games',
+        url: config.apiUrl + '/games/',
         method: 'GET',
         headers: {
             Authorization: 'Bearer ' + store.user.token

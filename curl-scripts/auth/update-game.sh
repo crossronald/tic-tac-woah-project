@@ -2,7 +2,7 @@ curl "https://tic-tac-toe-api-production.herokuapp.com/games/5f485b049314ac0017a
   --include \
   --request PATCH \
   --header "Content-Type: application/json" \
-  --header "Authorization: Bearer 267b0c272761786da87579490f97261d" \
+  --header "Authorization: Bearer b9696a0a8239614085c435aabfe2c66c" \
   --data '{
   "game": {
     "cell": {

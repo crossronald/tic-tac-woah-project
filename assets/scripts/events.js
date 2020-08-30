@@ -2,6 +2,8 @@
 const getFormFields = require('./../../lib/get-form-fields')
 const api = require('./api')
 const ui = require('./ui')
+const store = require('./store')
+const gameStore = require('./storeGame')
 
 
 
@@ -13,33 +15,30 @@ $('#board-container').hide()
 
 let total = 0
 let player = ""
-
+let px = document.createTextNode("X")
+let po = document.createTextNode("O")
 let winnerArray = []
 
 
 
 let turnCount = function() {
-    
     total +=1
-    console.log(total)
+   
     if (total % 2 === 0) {
         player = "X"
-    } else {
+      } else {
         player = "O"
     }
     if(player === "X") {
         $('#message').text('Player is O')
-    } else {
+      } else {
         $('#message').text('Player is X')
     }
     if(total === 9) {
         $('#board-container').hide()
         $('#message').text('The game is over!')
-    }
-   
+        }
     return total
-    
-
 }
 
 
@@ -166,28 +165,44 @@ const onCreateGame = function(event) {
     const form = event.target
     total = 0
     const data = getFormFields(form)
+    
     api.createGame(data)
     
     .then(ui.onCreateGameSuccess)
-    .catch(ui.onCreateGameFailure)
+    .catch(ui.onFailMessage)
 }
 
 const onGetAllGames = function(event) {
     event.preventDefault()
     const form = event.target
     const data = getFormFields(form)
+   
     api.getAllGames(data)
     .then(ui.onGetAllGamesSuccess)
-    .catch(ui.onGetAllGamesFailure)
+    .catch(ui.onFailMessage)
 }
 const onGetGame = function(event) {
     event.preventDefault()
     const form = event.target
     const data = getFormFields(form)
+   
     api.getGame(data)
     .then(ui.onGetGameSuccess)
-    .catch(ui.onGetGameFailure)
+    .catch(ui.onFailMessage)
 }
+
+// const onSaveGame = function (event) {
+//     event.preventDefault()
+//     const form = event.target
+//     const data = getFormFields(form)
+//     const email = store.user.email
+//    const savedGame = storeGame.id
+//     api.saveGame(data)
+//     .then(ui.onSaveGameSuccess(email, savedGame))
+//     .catch(ui.onFailMessage)
+// }
+
+
 const onSignIn = function(event) {
     event.preventDefault()
     const form = event.target
@@ -203,7 +218,7 @@ const onSignOut = function(event) {
     const data = getFormFields(form)
     api.signOut(data)
     .then(ui.onSignOutSuccess)
-    .catch(ui.onSignOutFailure)
+    .catch(ui.onFailMessage)
 }
 const onSignUp = function(event) {
     event.preventDefault()
@@ -217,17 +232,21 @@ const onUpdateGame = function(event) {
     event.preventDefault()
     const form = event.target
     const data = getFormFields(form)
+    let email = store.user.email
+    
+    let gameID = gameStore.id
+    let gameState = winnerArray
     api.updateGame(data)
-    .then(ui.onUpdateGameSuccess)
-    .catch(ui.onUpdateGameFailure)
+    .then(ui.onUpdateGameSuccess(email, gameID, gameState))
+    .catch(ui.onFailMessage)
 }
+
+
 
 const boxOne = function () {
     turnCount()
    
    let b1 = document.querySelector('#p1')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[0] = "X"
@@ -239,15 +258,14 @@ const boxOne = function () {
          }
          document.getElementById('box-1').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+       
     }
 const boxTwo = function (event) {
     event.preventDefault()
     turnCount()
    
     let b1 = document.querySelector('#p2')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[1] = "X"
@@ -259,15 +277,14 @@ const boxTwo = function (event) {
          }
          document.getElementById('box-2').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+        
 }
 const boxThree = function (event) {
     event.preventDefault()
     turnCount()
    
     let b1 = document.querySelector('#p3')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+  
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[2] = "X"
@@ -279,15 +296,14 @@ const boxThree = function (event) {
          }
          document.getElementById('box-3').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+         
 }
 const boxFour = function (event) {
     event.preventDefault()
     turnCount()
  
     let b1 = document.querySelector('#p4')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[3] = "X"
@@ -300,15 +316,14 @@ const boxFour = function (event) {
      
          document.getElementById('box-4').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+       
 }
 const boxFive = function (event) {
     event.preventDefault()
     turnCount()
 
     let b1 = document.querySelector('#p5')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[4] = "X"
@@ -321,15 +336,14 @@ const boxFive = function (event) {
  
          document.getElementById('box-5').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+         
 }
 const boxSix = function (event) {
     event.preventDefault()
     turnCount()
     
     let b1 = document.querySelector('#p6')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+   
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[5] = "X"
@@ -341,7 +355,7 @@ const boxSix = function (event) {
          }
          document.getElementById('box-6').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+         
 
 }
 const boxSeven = function (event) {
@@ -349,8 +363,7 @@ const boxSeven = function (event) {
     turnCount()
    
     let b1 = document.querySelector('#p7')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+   
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[6] = "X"
@@ -363,15 +376,14 @@ const boxSeven = function (event) {
    
          document.getElementById('box-7').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+        
 }
 const boxEight = function (event) {
     event.preventDefault()
     turnCount()
     
     let b1 = document.querySelector('#p8')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+    
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[7] = "X"
@@ -384,15 +396,14 @@ const boxEight = function (event) {
  
          document.getElementById('box-8').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+       
 }
 const boxNine = function (event) {
-    event.preventDefault()
+    // event.preventDefault()
     turnCount()
   
     let b1 = document.querySelector('#p9')
-    let px = document.createTextNode("X")
-    let po = document.createTextNode("O")
+   
     if(player === "X") {
         b1.appendChild(px)
         winnerArray[8] = "X"
@@ -404,12 +415,9 @@ const boxNine = function (event) {
          }
          document.getElementById('box-9').style.pointerEvents = 'none'
          checkWinCondition()
-         console.log(winnerArray)
+        
 
 }
-
-
-
 
 
 
@@ -422,6 +430,7 @@ module.exports = {
     onSignOut,
     onSignUp,
     onUpdateGame,
+    // onSaveGame,
     boxOne,
     boxTwo,
     boxThree,
