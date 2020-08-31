@@ -1,102 +1,96 @@
-const store = require('./store')
-const storeGame = require('./storeGame')
+//Require file functions
+    const store = require('./store')
 
-const onFailMessage = function () {
-    $('#message').text('An error has occurred. Please try again!')
-}
+//Fail Message Funciton
+    const onFailMessage = function () {
+        $('#message').text('An error has occurred. Please try again!')
+    }
 
+//Click event functions Auth Success
+    const onSignOutSuccess = function() {
+        $('#message').text('You have been signed out!')  
+    }
+    const onSignUpSuccess = function() {
+        $('#message').text('Congratulations! Your account is created!')
+        $('#sign-up').trigger("reset")
+    }
+    const onSignInSuccess = function(response) {
+        store.user = response.user 
+        $('#message').text('You are now signed in!')
+        $('#sign-in').trigger("reset")
+    }
+    const onChangePasswordSuccess = function() {
+        $('#message').text('Password successfully changed!')
+        $('#change-password').trigger("reset")
+    }
 
-const onChangePasswordSuccess = function() {
-    $('#message').text('Password successfully changed!')
-    $('#change-password').trigger("reset")
-}
-const onCreateGameSuccess = function(response) {
-    $('#message').text('Congratulations! You created the game!')
-      
-        storeGame.id = response.game._id
-        
-}
+//Click event functions Auth Failure
+    const onSignOutFailure = function () {
+        failMessage()
+        $('#sign-out').trigger("reset")
+    }
+    const onSignUpFailure = function () {
+        failMessage()
+        $('#sign-up').trigger("reset")
+    }
+    const onSignInFailure = function () {
+        failMessage()
+        $('#sign-in').trigger("reset")
+    }
+    const onChangePasswordFailure = function () {
+        failMessage()
+        $('#change-password').trigger("reset")
+    }
 
-// const onSaveGameSuccess = function (email, savedGame) {
-//     //THIS IS EXPERIMENTAL CODE
-//     object = {
-//         email: updateGame.com,
-//         savedGame: 893u839749032
-//     }
+//Click event functions Game Success
+    const onNewGameSuccess = function(response) {
+        $('#message').text('Congratulations! You created the game!')
+        store.game  =  response.game
+    }
+    const onOldGameSuccess = function() {
+        $('#message').text('Here\'s the game you asked for!')
+    }  
+    const onAllOldGamesSuccess = function(response) {
+        $('#message').text('Here are all your games!')
+        return response
+            
+    } 
+    const onSaveGameSuccess = function() {
+        $('#message').text('Your game has been successfully updated!')
+    }
 
-// //THIS IS EXPERIMENTAL CODE
-// }
+//Click Event Function Game Failure
+    const onNewGameFailure = function() {
+        failMessage()
+    }
+    const onOldGameFailure = function(){
+        failMessage()
+    }  
+    const onAllOldGamesFailure = function() {
+        failMessage()     
+    } 
+    const onSaveGameFailure = function() {
+        failMessage()
+    }
 
-const onGetAllGamesSuccess = function() {
-    $('#message').text('Here are all your games!')
-    return storeGame //DOUBLE CHECK THIS IF YOU HAVE ANY ISSUES
-        
-} 
-const onGetGameSuccess = function(response ) {
-    $('#message').text('Here\'s the game you asked for!')
-    console.log(response.user.email)
-    if(store.user.email = response.user.email){
-        // storeGame.id = TRY HEREEEEEEEEEEEE
-        }
-  
-}  
-const onSignInSuccess = function(response) {
-    store.user = response.user 
-    $('#message').text('You are now signed in!')
-    $('#sign-in').trigger("reset")
-    
-}
-const onSignOutSuccess = function() {
-    $('#message').text('You have been signed out!')  
-}
-const onSignUpSuccess = function() {
-    $('#message').text('Congratulations! Your account is created!')
-    $('#sign-up').trigger("reset")
-}
-const onUpdateGameSuccess = function(email, gameID, gameState) {
-    $('#message').text('Your game has been successfully updated!')
-    console.log('the thing after this is the store cosole.')
-    console.log(store)
-    console.log(storeGame)
-    console.log(email)
-    console.log(gameID)
-    console.log(gameState)
-    store.user.email = email
-    storeGame.id = gameID.id
-    storeGame.cells = gameState
-    console.log(storeGame.cells)
-    
-}
-
-
-const onChangePasswordFailure = function () {
-    failMessage()
-    $('#change-password').trigger("reset")
-}
-
-const onSignInFailure = function () {
-    failMessage()
-    $('#sign-in').trigger("reset")
-}
-
-const onSignUpFailure = function () {
-    failMessage()
-    $('#sign-up').trigger("reset")
-}
 
 
 module.exports = {
-onChangePasswordSuccess,
-onCreateGameSuccess,
-onGetAllGamesSuccess,
-onGetGameSuccess,
-onSignInSuccess,
 onSignOutSuccess,
+onSignOutFailure,
 onSignUpSuccess,
-onUpdateGameSuccess,
-onChangePasswordFailure,
-onFailMessage,
-onSignInFailure,
 onSignUpFailure,
-// onSaveGameSuccess
+onSignInSuccess,
+onSignInFailure,
+onChangePasswordSuccess,
+onChangePasswordFailure,
+onNewGameSuccess,
+onNewGameFailure,
+onOldGameSuccess,
+onOldGameFailure,
+onAllOldGamesSuccess,
+onAllOldGamesFailure,
+onSaveGameSuccess,
+onSaveGameFailure,
+onFailMessage
 }
