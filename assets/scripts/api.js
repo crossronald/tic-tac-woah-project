@@ -1,5 +1,4 @@
 'use strict'
-const storeGame = require("./storeGame")
 const config = require("./config")
 const store = require("./store")
 
@@ -47,7 +46,7 @@ const getAllGames = function (data) {
 }
 const getGame = function (data) {
     return $.ajax({
-        url: config.apiUrl + '/games/' + storeGame.id,
+        url: config.apiUrl + '/games/' + store.game._id,
         method: 'GET',
         headers: {
             Authorization: 'Bearer ' + store.user.token

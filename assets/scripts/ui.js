@@ -55,8 +55,11 @@
         return response
             
     } 
-    const onSaveGameSuccess = function() {
+    const onUpdateGameSuccess = function(response) {
         $('#message').text('Your game has been successfully updated!')
+        console.log(response)
+        //display game cells in the place where they're supposed to be
+        //display message of whos turn it is now (store.player)
     }
 
 //Click Event Function Game Failure
@@ -69,7 +72,7 @@
     const onAllOldGamesFailure = function() {
         failMessage()     
     } 
-    const onSaveGameFailure = function() {
+    const onUpdateGameFailure = function() {
         failMessage()
     }
 
@@ -90,7 +93,7 @@ onOldGameSuccess,
 onOldGameFailure,
 onAllOldGamesSuccess,
 onAllOldGamesFailure,
-onSaveGameSuccess,
-onSaveGameFailure,
+onUpdateGameSuccess,
+onUpdateGameFailure,
 onFailMessage
 }
