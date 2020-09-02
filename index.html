@@ -8,28 +8,27 @@
       <script src="public/application.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
     <body>
-      <p id="message">This Text is a Placeholder!</p>
-      <button id="new-game">New Game</button><br/> <!-- On Click -->
-      <button id="old-game">Old Game</button><br/><!-- On Click -->
-      <button id="all-old-games">All Old Games</button><br/><!-- On Click -->
-      <button id="save-game">Save Game</button><br/><!-- On Click -->
-      <button id="sign-out">Sign Out</button><!-- On Click -->
+      <p id="message"></p>
+    
       <form id="sign-up">
-        <input name="credentials[email]" type="text" placeholder="an@example.email"><br/>
-        <input name="credentials[password]" type="password" placeholder="an example password"><br/>
-        <input name="credentials[password_confirmation]" type="password" placeholder="an example password"><br/>
-        <button type="submit">Sign Up</button><!-- On Click -->
-      </form>
+        <input name="credentials[email]" type="text" placeholder="an@example.email" id="sign-up-email">
+        <input name="credentials[password]" type="password" placeholder="an example password" id="sign-up-pw">
+        <input name="credentials[password_confirmation]" type="password" placeholder="an example password" id="sign-up-pw-confirm">
+        <button type="submit" id="sign-up-button">Sign Up</button><!-- On Click -->
+      </form><br/>
       <form id="sign-in">
-        <input name="credentials[email]" type="text" placeholder="an@example.email"><br/>
-        <input name="credentials[password]" type="password" placeholder="an example password"><br/>
-        <button type="submit">Sign-In</button><!-- On Click -->
+        <input name="credentials[email]" type="text" placeholder="an@example.email" id="sign-in-email">
+        <input name="credentials[password]" type="password" placeholder="an example password" id="sign-in-pw">
+        <button type="submit" id="sign-in-button">Sign-In</button><!-- On Click -->
       </form>
       <form id="change-password" >
         <input name="passwords[old]" type="password" placeholder="Old Password"><br/>
         <input name="passwords[new]" type="password" placeholder="New Password"><br/>
         <button type="submit">Change Password</button><!-- On Click -->
       </form>
+     
+      <button id="new-game">New Game</button> <!-- On Click -->
+      <button id="sign-out">Sign Out</button><!-- On Click -->
       <div class="container" id="box-container">
         <div class="row board h-100" id="board-container">
           <div class="col-4 box" id="box-1" data-cell-index=0></div>

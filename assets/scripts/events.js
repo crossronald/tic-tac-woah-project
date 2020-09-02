@@ -1,83 +1,37 @@
 'use strict'
-
 //Required Files
     const getFormFields = require('./../../lib/get-form-fields')
     const api = require('./api')
     const ui = require('./ui')
     const store = require('./store')
 
-
 //Variables
-    let total = 0
-
-    let winnerArray = ["","","","","","","","",""]
-    let cellNum = null
     let player = "x"
-    
-    const px = document.createTextNode("x")
-    const po = document.createTextNode("o")
-  
-
-   
-
-// Game board Functions
-    const hideBoard = function (){
-    $('#board-container').hide()
-    }
+    let over = false
  
-    const setPlayer = function() {
-        if (player === "x") {
-            player = "o"
-        } else {
-            player = "x"
-        }   
-    }
-    const currentPlayerMessage = function (){
-    if(player === "x") {
-        $('#message').text('Player is O')
-    } else {
-        $('#message').text('Player is X')
-        }
-    }
-    const tieCondition = function (){
-    if(total === 9) {
-        $('#board-container').hide()
-        $('#message').text('The game is over!')
-        }
-    }
-    const restoreClicks = function () {
-        for(let i = 0; i < clickArray.length; i++){
-    let id = (document.getElementById(i).style.pointerEvents = 'auto')
-    return id
-        }
-    }
-    const removeClicks = function () {
-        for(let i = 0; i < clickArray.length; i++){
-    let id = (document.getElementById(i).style.pointerEvents = 'none')
-    return id
-        }
-    }
-
-    const checkWinCondition = function () { 
-    [0, 1, 2]
-    [0, 4, 8]
-    [0, 3, 6]
-    [1, 4, 7]
-    [2, 4, 6]
-    [2, 5, 8]
-    [3, 4, 5]
-    [6, 7, 8]
-    }
-
-    const gameOverMsg = function () {
-        $('#message').text('The game is over! ' + player + ' wins!')
-        removeClicks()
-    }
-
-
+      const possibleWins = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ]
+      
+    
 //Game API Functions
+const setPlayer = function() {
+    if (player === "x") {
+        player = "o"
+    } else {
+        player = "x"
+    }   
+}
     const onNewGame = function(event) {//This Function is GOOD!
         $('#board-container').show()
+       $('.box').css('pointer-events', 'auto')
         const form = event.target
         const data = getFormFields(form)
         api.createGame(data)
@@ -94,40 +48,35 @@
     const onAllOldGames = function(event) {//This Function is GOOD!
         const form = event.target
         const data = getFormFields(form)
-        console.log(data)
+        // console.log(data)
         api.getAllGames(data)
         .then(ui.onAllOldGamesSuccess)
         .catch(ui.onFailMessage)
     }
+    const clickedBox = function (event){
 
-
-
-//Individual Box functions
-const clickedBox = function (event){
-    console.log(event.target)
-
-    let cellIndex = $(event.target).attr('data-cell-index')
-    console.log('This is the cell index.', cellIndex)
-    store.game.cells[cellIndex] = player
-    setPlayer()
-    let data = {
-        game: {
-          cell: {
-            index: cellIndex,
-            value: player
-          },
-          over: false
-        }
-      }
-    api.updateGame(data)
-    .then(ui.onUpdateGameSuccess)
-    .catch(ui.onFailMessage)
-   
-}
-
-
-  
-
+        let cellIndex = $(event.target).attr('data-cell-index')
+        store.player = player
+        store.game.cells[cellIndex] = player
+       $(event.target).text(player)
+       winCondition()
+      
+        setPlayer()
+        let data = {
+            game: {
+              cell: {
+                index: cellIndex,
+                value: player
+              },
+              over: over
+            }
+          }
+        $(event.target).css('pointer-events', 'none')
+        api.updateGame(data)
+        .then(ui.onUpdateGameSuccess)
+        .catch(ui.onFailMessage)
+       console.log(over)
+    }
 
 //Auth Functions
 const onSignOut = function(event) {
@@ -163,6 +112,52 @@ const onChangePassword = function(event) {
     .catch(ui.onChangePasswordFailure)
 } 
 
+// Game board Functions
+const hideStuff = function () {
+    $('#board-container').hide()
+    $('#change-password').hide()
+    $('#new-game').hide()
+    $('#sign-out').hide()
+    $('#sign-up-email').hide()
+    $('#sign-up-pw').hide()
+    $('#sign-up-pw-confirm').hide()
+    $('#sign-in-email').hide()
+    $('#sign-in-pw').hide()
+    $('#sign-up-button').hover(function(){
+        $('#sign-up-email').show()
+        $('#sign-up-pw').show()
+        $('#sign-up-pw-confirm').show()
+    })
+    $('#sign-in-button').hover(function() {
+        $('#sign-in-email').show()
+        $('#sign-in-pw').show()
+        })
+    }
+
+   
+      
+      const winCondition = function () {
+         let gameBoard = store.game.cells
+         const winningArray = []
+         for(let i = 0; i < possibleWins.length; i++) {
+             let singleWin = possibleWins[i]
+          
+            winningArray.push(gameBoard[singleWin[0]])
+            winningArray.push(gameBoard[singleWin[1]])
+            winningArray.push(gameBoard[singleWin[2]])
+
+            if(winningArray[0] === winningArray[1] && winningArray[1] === winningArray[2] && winningArray[0] !== "") {
+                over = true
+                console.log(over)
+                }
+                
+        
+      }
+     
+    }
+
+//Immediately invoked funcitons
+    hideStuff()
 
 module.exports = {
   onSignOut,
@@ -172,5 +167,6 @@ module.exports = {
   onNewGame,
   onOldGame,
   onAllOldGames,
-  clickedBox
+  clickedBox,
+  hideStuff,
 }

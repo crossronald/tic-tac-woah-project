@@ -16,11 +16,9 @@
             $('#new-game').on('click', authEvents.onNewGame)
             $('#old-game').on('click', authEvents.onOldGame)
             $('#all-old-games').on('click', authEvents.onAllOldGames)
-            $('#save-game').on('click', authEvents.onSaveGame)
 
         //game play management
-        
-    
+            
             $('#box-1').on('click', authEvents.clickedBox)
             $('#box-2').on('click', authEvents.clickedBox)
             $('#box-3').on('click', authEvents.clickedBox)

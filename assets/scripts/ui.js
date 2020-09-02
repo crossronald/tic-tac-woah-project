@@ -17,7 +17,12 @@
     const onSignInSuccess = function(response) {
         store.user = response.user 
         $('#message').text('You are now signed in!')
+        $('#change-password').hide()
+        $('#new-game').show()
+        $('#sign-out').show()
         $('#sign-in').trigger("reset")
+        $('#sign-in').hide()
+        $('#sign-up').hide()
     }
     const onChangePasswordSuccess = function() {
         $('#message').text('Password successfully changed!')
@@ -45,7 +50,10 @@
 //Click event functions Game Success
     const onNewGameSuccess = function(response) {
         $('#message').text('Congratulations! You created the game!')
+        $('#board-container').show()
         store.game  =  response.game
+        $('.box').text('')
+
     }
     const onOldGameSuccess = function() {
         $('#message').text('Here\'s the game you asked for!')
@@ -56,11 +64,18 @@
             
     } 
     const onUpdateGameSuccess = function(response) {
-        $('#message').text('Your game has been successfully updated!')
-        console.log(response)
-        //display game cells in the place where they're supposed to be
-        //display message of whos turn it is now (store.player)
+      let currentPlayer = store.player
+      if(currentPlayer === "x") {
+          currentPlayer = "o"
+      } else {
+          currentPlayer = "x"
+      }
+       $('#message').text(`The game has been updated! It's ${currentPlayer}'s turn!`)
+    //    console.log('this is a response! ')
+       
+    //    console.log(response)
     }
+
 
 //Click Event Function Game Failure
     const onNewGameFailure = function() {
