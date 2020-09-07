@@ -1,29 +1,46 @@
-way to reset the game
- User must be able to sign up
- User must be able to sign in/out
-images to scale based on the device I'm using
-win screen 
+# Tic-Tac-Toe Project
+
+#### This is a simple tic-tac-toe game using mostly  JavaScript. API used is from General Assembly
 
 
- Signed in user must be able to change password
- Signed in user user must be able to start a tic tac toe game
- When playing game, user must start as X and then rotate between X and O
- When playing game, user must only select available spaces on the board
- When playing game, user must be notified when win, loss or tie occurs
- Once a game is over, user must not be able to add to that board
- Once a game is over, user must be able to play again
- Signed in user must be able to view number of games played
+## I used Lucid Chart to create a wireframe for the landing page:
 
-API Requirements
- Sign up POST /sign-up
- Sign in POST /sign-in
- Change password PATCH /change-password
- Sign out DELETE /sign-out
- New game POST /games
- Update game PATCH /games/:id
- View number of games played GET /games
- Give feedback to the user after each action's success or failure.
- All forms must clear after submit success
+![TTT Draft Landing Page](./assets/screenshot/tictactoe.png)
 
+## Here's the final working result:
+
+![TTT Working Landing Page](./assets/screenshot/livesite.png)
+
+
+
+## User Stories:
+I would like an easy way to reset the game
+I would like the UI to be simple
+I would like to be able to log in and out
+I would like the app to work smoothly and consistently 
+I would like to be able to keep track of my scores
+
+
+## Planning: 
+I started out going for core functionality with this project. I got seriously derailed when trying to refactor. My development process was trying to construct the HTML, then some light CSS for functionality. I added in Javascript to get the final product. 
+
+## Future Enhancements / Unsolved Problems:
+Color and style enhancements
+advanced game recall features
+One bug that I would like to fix is that the sign up and sign in forms don't hide when you un-hover over the button.
+
+## Technologies:
+* HTML
+* CSS
+* Vanilla JavaScript
+* JQuery
+* Lucid Chart
+* General Assembly API
+ 
+
+
+
+## Getting Started:
+Click [HERE]() to open in desktop.
 
  

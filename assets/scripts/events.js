@@ -8,19 +8,9 @@
 //Variables
     let player = "x"
     let over = false
- 
-      const possibleWins = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-      ]
+
       
-    
+     
 //Game API Functions
 const setPlayer = function() {
     if (player === "x") {
@@ -45,23 +35,21 @@ const setPlayer = function() {
         .then(ui.onOldGameSuccess)
         .catch(ui.onFailMessage)
     }
-    const onAllOldGames = function(event) {//This Function is GOOD!
-        const form = event.target
-        const data = getFormFields(form)
-        // console.log(data)
-        api.getAllGames(data)
+    const onAllOldGames = function() {//This Function is GOOD!
+        api.getAllGames()
         .then(ui.onAllOldGamesSuccess)
         .catch(ui.onFailMessage)
     }
     const clickedBox = function (event){
-
         let cellIndex = $(event.target).attr('data-cell-index')
         store.player = player
         store.game.cells[cellIndex] = player
+        console.log(store)
        $(event.target).text(player)
-       winCondition()
-      
         setPlayer()
+       
+        winCondition()
+        console.log(over)
         let data = {
             game: {
               cell: {
@@ -71,6 +59,7 @@ const setPlayer = function() {
               over: over
             }
           }
+         
         $(event.target).css('pointer-events', 'none')
         api.updateGame(data)
         .then(ui.onUpdateGameSuccess)
@@ -134,27 +123,89 @@ const hideStuff = function () {
         })
     }
 
-   
-      
-      const winCondition = function () {
-         let gameBoard = store.game.cells
-         const winningArray = []
-         for(let i = 0; i < possibleWins.length; i++) {
-             let singleWin = possibleWins[i]
-          
-            winningArray.push(gameBoard[singleWin[0]])
-            winningArray.push(gameBoard[singleWin[1]])
-            winningArray.push(gameBoard[singleWin[2]])
-
-            if(winningArray[0] === winningArray[1] && winningArray[1] === winningArray[2] && winningArray[0] !== "") {
-                over = true
-                console.log(over)
-                }
-                
+    const winnerWinner = function () {
+        $('#message').text(player + ' is the winner!')
+        $('#board-container').hide()
+        over = true
         
-      }
-     
     }
+
+    let winCondition = function () {
+        //I need to be able to determine where the x's and o's are
+        let winnerArray = store.game.cells
+        console.log(winnerArray)
+
+        let WA0 = winnerArray[0]
+        let WA1 = winnerArray[1]
+        let WA2 = winnerArray[2]
+        let WA3 = winnerArray[3]
+        let WA4 = winnerArray[4]
+        let WA5 = winnerArray[5]
+        let WA6 = winnerArray[6]
+        let WA7 = winnerArray[7]
+        let WA8 = winnerArray[8]
+
+        if(WA0 === "x" && WA1 === "x" && WA2 === "x" ) {
+            winnerWinner()
+        
+        }
+        if(WA0 === "x" && WA3 === "x" && WA6 === "x" ) {
+            winnerWinner()
+        }
+        if(WA0 === "x" && WA4 === "x" && WA8 === "x" ) {
+            winnerWinner()
+        }
+        if(WA1 === "x" && WA4 === "x" && WA7 === "x" ) {
+            winnerWinner()
+        }
+        if(WA2 === "x" && WA4 === "x" && WA6 === "x" ) {
+            winnerWinner()
+        }
+        if(WA2 === "x" && WA5 === "x" && WA8 === "x" ) {
+            winnerWinner()
+        }
+        if(WA3 === "x" && WA4 === "x" && WA5 === "x" ) {
+            winnerWinner()
+        }
+        if(WA6 === "x" && WA7 === "x" && WA8 === "x" ) {
+            winnerWinner()
+        }
+
+        if(WA0 === "o" && WA1 === "o" && WA2 === "o" ) {
+            winnerWinner()
+        }
+        if(WA0 === "o" && WA3 === "o" && WA6 === "o" ) {
+            winnerWinner()
+        }
+        if(WA0 === "o" && WA4 === "o" && WA8 === "o" ) {
+            winnerWinner()
+        }
+        if(WA1 === "o" && WA4 === "o" && WA7 === "o" ) {
+            winnerWinner()
+        }
+        if(WA2 === "o" && WA4 === "o" && WA6 === "o" ) {
+            winnerWinner()
+        }
+        if(WA2 === "o" && WA5 === "o" && WA8 === "o" ) {
+            winnerWinner()
+        }
+        if(WA3 === "o" && WA4 === "o" && WA5 === "o" ) {
+        winnerWinner()
+    }
+        if(WA6 === "o" && WA7 === "o" && WA8 === "o" ) {
+        winnerWinner()
+    }
+    }  
+
+   
+
+
+
+
+
+
+
+
 
 //Immediately invoked funcitons
     hideStuff()

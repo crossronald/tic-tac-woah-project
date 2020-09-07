@@ -5,10 +5,17 @@
     const onFailMessage = function () {
         $('#message').text('An error has occurred. Please try again!')
     }
-
+ 
 //Click event functions Auth Success
     const onSignOutSuccess = function() {
         $('#message').text('You have been signed out!')  
+        $('#change-password').hide()
+        $('#new-game').hide()
+        $('#sign-out').hide()
+        $('#sign-in').show()
+        $('#sign-up').show()
+        $('#board-container').hide()
+
     }
     const onSignUpSuccess = function() {
         $('#message').text('Congratulations! Your account is created!')
@@ -17,7 +24,7 @@
     const onSignInSuccess = function(response) {
         store.user = response.user 
         $('#message').text('You are now signed in!')
-        $('#change-password').hide()
+        $('#change-password').show()
         $('#new-game').show()
         $('#sign-out').show()
         $('#sign-in').trigger("reset")
@@ -59,6 +66,8 @@
         $('#message').text('Here\'s the game you asked for!')
     }  
     const onAllOldGamesSuccess = function(response) {
+        store.games = response.games
+        console.log(response)
         $('#message').text('Here are all your games!')
         return response
             

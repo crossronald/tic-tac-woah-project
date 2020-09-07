@@ -34,14 +34,13 @@ const createGame = function (data) {
         data: data
     })
 }
-const getAllGames = function (data) {
+const getAllGames = function () {
     return $.ajax({
-        url: config.apiUrl + '/games/',
+        url: config.apiUrl + '/games',
         method: 'GET',
         headers: {
             Authorization: 'Bearer ' + store.user.token
-        },
-        data: data
+        }
     })
 }
 const getGame = function (data) {
