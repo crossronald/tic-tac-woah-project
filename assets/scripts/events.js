@@ -28,19 +28,19 @@ const setPlayer = function() {
         const data = getFormFields(form)
         api.createGame(data)
         .then(ui.onNewGameSuccess)
-        .catch(ui.onFailMessage)
+        .catch(ui.onNewGameFailure)
     }
     const onOldGame = function(event) {//This Function is GOOD!
         const form = event.target
         const data = getFormFields(form)
         api.getGame(data)
         .then(ui.onOldGameSuccess)
-        .catch(ui.onFailMessage)
+        .catch(ui.onOldGameFailure)
     }
     const onAllOldGames = function() {//This Function is GOOD!
         api.getAllGames()
         .then(ui.onAllOldGamesSuccess)
-        .catch(ui.onFailMessage)
+        .catch(ui.onAllOldGamesFailure)
     }
     const clickedBox = function (event){
         let cellIndex = $(event.target).attr('data-cell-index')
@@ -65,7 +65,7 @@ const setPlayer = function() {
         $(event.target).css('pointer-events', 'none')
         api.updateGame(data)
         .then(ui.onUpdateGameSuccess)
-        .catch(ui.onFailMessage)
+        .catch(ui.onUpdateGameFailure)
      
     }
 
@@ -76,7 +76,7 @@ const onSignOut = function(event) {
     const data = getFormFields(form)
     api.signOut(data)
     .then(ui.onSignOutSuccess)
-    .catch(ui.onFailMessage)
+    .catch(ui.onSignOutFailure)
 }
 const onSignUp = function(event) {
     event.preventDefault()
@@ -135,7 +135,7 @@ const hideStuff = function () {
             currentPlayer = "x"
         }
 
-        $('#message-B').text('The game is over! ' + player + ' is the winner! ' + currentPlayer + ' is the loser!'
+        $('#message-B').text('The game is over! ' + currentPlayer + ' is the winner! ' + player + ' is the loser!'
          )
         $('#board-container').hide()
         over = true

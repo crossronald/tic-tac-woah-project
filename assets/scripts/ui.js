@@ -1,8 +1,8 @@
 //Require file functions
     const store = require('./store')
-
+    
 //Fail Message Funciton
-    const onFailMessage = function () {
+     function onFailMessage() {
         $('#message').text('An error has occurred. Please try again!')
     }
  
@@ -15,6 +15,7 @@
         $('#sign-in').show()
         $('#sign-up').show()
         $('#board-container').hide()
+        $('#all-old-games').hide()
 
     }
     const onSignUpSuccess = function() {
@@ -39,19 +40,20 @@
 
 //Click event functions Auth Failure
     const onSignOutFailure = function () {
-        failMessage()
+        $('#message').text('An error has occurred. Please try again!')
         $('#sign-out').trigger("reset")
     }
     const onSignUpFailure = function () {
-        failMessage()
+        console.log('this is a sign up failure')
+        $('#message').text('An error has occurred. Please try again!')
         $('#sign-up').trigger("reset")
     }
     const onSignInFailure = function () {
-        failMessage()
+        $('#message').text('An error has occurred. Please try again!')
         $('#sign-in').trigger("reset")
     }
     const onChangePasswordFailure = function () {
-        failMessage()
+        $('#message').text('An error has occurred. Please try again!')
         $('#change-password').trigger("reset")
     }
 
@@ -91,16 +93,16 @@
 
 //Click Event Function Game Failure
     const onNewGameFailure = function() {
-        failMessage()
+        onfailMessage()
     }
     const onOldGameFailure = function(){
-        failMessage()
+        onfailMessage()
     }  
     const onAllOldGamesFailure = function() {
-        failMessage()     
+        onfailMessage()     
     } 
     const onUpdateGameFailure = function() {
-        failMessage()
+        onfailMessage()
     }
 
 
