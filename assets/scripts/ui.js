@@ -63,6 +63,7 @@
         $('#board-container').show()
         store.game  =  response.game
         $('.box').text('')
+        store.player = "x"
 
     }
     const onOldGameSuccess = function() {
@@ -77,14 +78,14 @@
             
     } 
     const onUpdateGameSuccess = function(response) {
-       
-      let currentPlayer = store.player
-      if(currentPlayer === "x") {
+       $('#message').show()
+      let currentPlayer = null
+      if(store.player === "x") {
           currentPlayer = "o"
       } else {
           currentPlayer = "x"
       }
-       $('#message').text(`The game has been updated! It's ${currentPlayer}'s turn!`)
+       $('#message').text(`The game has been updated! It's ${store.player}'s turn!`)
    
       
 
