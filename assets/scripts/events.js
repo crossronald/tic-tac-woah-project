@@ -8,7 +8,7 @@
 //Variables
     let player = "x"
     let over = false
-
+    let turns = 0
       
      
 //Game API Functions
@@ -22,6 +22,8 @@ const setPlayer = function() {
     const onNewGame = function(event) {//This Function is GOOD!
         $('#board-container').show()
        $('.box').css('pointer-events', 'auto')
+       $('#message-B').text(' ')
+       $('#message').text(' ')
         const form = event.target
         const data = getFormFields(form)
         api.createGame(data)
@@ -44,12 +46,12 @@ const setPlayer = function() {
         let cellIndex = $(event.target).attr('data-cell-index')
         store.player = player
         store.game.cells[cellIndex] = player
-        console.log(store)
        $(event.target).text(player)
         setPlayer()
-       
+       turns += 1
+    
         winCondition()
-        console.log(over)
+  
         let data = {
             game: {
               cell: {
@@ -64,7 +66,7 @@ const setPlayer = function() {
         api.updateGame(data)
         .then(ui.onUpdateGameSuccess)
         .catch(ui.onFailMessage)
-       console.log(over)
+     
     }
 
 //Auth Functions
@@ -112,6 +114,7 @@ const hideStuff = function () {
     $('#sign-up-pw-confirm').hide()
     $('#sign-in-email').hide()
     $('#sign-in-pw').hide()
+    $('#all-old-games').hide()
     $('#sign-up-button').hover(function(){
         $('#sign-up-email').show()
         $('#sign-up-pw').show()
@@ -120,20 +123,29 @@ const hideStuff = function () {
     $('#sign-in-button').hover(function() {
         $('#sign-in-email').show()
         $('#sign-in-pw').show()
+       
         })
     }
 
     const winnerWinner = function () {
-        $('#message').text(player + ' is the winner!')
+        let currentPlayer = null
+        if(player === "x") {
+            currentPlayer = "o"
+        } else {
+            currentPlayer = "x"
+        }
+
+        $('#message-B').text('The game is over! ' + player + ' is the winner! ' + currentPlayer + ' is the loser!'
+         )
         $('#board-container').hide()
         over = true
-        
+      
     }
 
     let winCondition = function () {
         //I need to be able to determine where the x's and o's are
         let winnerArray = store.game.cells
-        console.log(winnerArray)
+      
 
         let WA0 = winnerArray[0]
         let WA1 = winnerArray[1]
@@ -194,6 +206,10 @@ const hideStuff = function () {
     }
         if(WA6 === "o" && WA7 === "o" && WA8 === "o" ) {
         winnerWinner()
+    }
+    if(turns === 9 && over === false) {
+        $('#message-B').text('The game is a tie!')
+        
     }
     }  
 

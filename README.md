@@ -41,6 +41,6 @@ One bug that I would like to fix is that the sign up and sign in forms don't hid
 
 
 ## Getting Started:
-Click [HERE]() to open in desktop.
+Click [HERE](https://crossronald.github.io/tic-tac-woah-project/) to open in desktop.
 
  

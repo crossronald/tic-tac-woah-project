@@ -30,6 +30,7 @@
         $('#sign-in').trigger("reset")
         $('#sign-in').hide()
         $('#sign-up').hide()
+        $('#all-old-games').show()
     }
     const onChangePasswordSuccess = function() {
         $('#message').text('Password successfully changed!')
@@ -67,12 +68,14 @@
     }  
     const onAllOldGamesSuccess = function(response) {
         store.games = response.games
-        console.log(response)
-        $('#message').text('Here are all your games!')
-        return response
+        let stored = store.games
+
+        $('#message-B').text(`You have played ${stored.length} games so far!`)
+        
             
     } 
     const onUpdateGameSuccess = function(response) {
+       
       let currentPlayer = store.player
       if(currentPlayer === "x") {
           currentPlayer = "o"
@@ -80,9 +83,9 @@
           currentPlayer = "x"
       }
        $('#message').text(`The game has been updated! It's ${currentPlayer}'s turn!`)
-    //    console.log('this is a response! ')
-       
-    //    console.log(response)
+   
+      
+
     }
 
 
