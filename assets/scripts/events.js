@@ -4,6 +4,7 @@
     const api = require('./api')
     const ui = require('./ui')
     const store = require('./store')
+    
 
 //Variables
     // let player = "x"
@@ -27,9 +28,11 @@ const setPlayer = function() {
     }   
 }
     const onNewGame = function(event) {//This Function is GOOD!
+        over = false
         $('#board-container').show()
        $('.box').css('pointer-events', 'auto')
-       $('#message-B').text(' ')
+       $('#message-B').empty()
+       $('#message-B').show()
        $('#message').text(' ')
        turns = 0
         const form = event.target
@@ -58,7 +61,7 @@ const setPlayer = function() {
         
        turns += 1
        setPlayer()
-       
+       drawGame()
   
         let data = {
             game: {
@@ -82,6 +85,7 @@ const onSignOut = function(event) {
     event.preventDefault()
     const form = event.target
     const data = getFormFields(form)
+    $('#message-B').empty()
     api.signOut(data)
     .then(ui.onSignOutSuccess)
     .catch(ui.onSignOutFailure)
@@ -152,20 +156,37 @@ const hideStuff = function () {
       
     }
 
-    let winCondition = function () {
-        //I need to be able to determine where the x's and o's are
-        if(turns === 9 && over === false) {
-            $('#message-B').text('The game is a tie!')
-            turns = 0
-            $('.box').css('pointer-events', 'none')
-            store.player = "x"
-            $('#message').text(' ')
-            over = true
-        }
 
 
 
+    const drawGame = function() {
         let winnerArray = store.game.cells
+        const draw = winnerArray.includes('')
+        if (draw !== true && over === false) {
+          over = true
+          $('#message-B').text('The game is a tie')
+         
+
+          $('#message').hide()
+        }
+    }
+    let winCondition = function () {
+        // let winArray = store.game.cells
+        // //I need to be able to determine where the x's and o's are
+        // if(turns === 9 && over === false && winArray !== '') {
+        //     $('#message-B').text('The game is a tie!')
+        //     turns = 0
+        //     $('.box').css('pointer-events', 'none')
+        //     store.player = "x"
+        //     $('#message').text(' ')
+        //     over = true
+        // }
+        
+        let winnerArray = store.game.cells
+
+    
+
+       
         
 
         let WA0 = winnerArray[0]

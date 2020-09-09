@@ -44,7 +44,7 @@
         $('#sign-out').trigger("reset")
     }
     const onSignUpFailure = function () {
-        console.log('this is a sign up failure')
+       
         $('#message').text('An error has occurred. Please try again!')
         $('#sign-up').trigger("reset")
     }
